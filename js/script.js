@@ -16,6 +16,8 @@ function start() {
 		movefundo();
 		movejogador();
 		moveinimigoHelicoptero();
+		moveinimigo();
+		moveHumano();
 	} 
 	
 	/* Moving Background */
@@ -79,6 +81,27 @@ function start() {
 		posicaoY = parseInt(Math.random() * 334);
 		$("#inimigo1").css("left", 694);
 		$("#inimigo1").css("top", posicaoY);	
+		}
+	}
+
+	function moveinimigo() {
+        posicaoX = parseInt($("#inimigo2").css("left"));
+		$("#inimigo2").css("left", posicaoX-5);
+				
+		if (posicaoX <= 0) {	
+			$("#inimigo2").css("left", 775);		
+		}
+	}
+
+	/* Human Config */
+
+	function moveHumano() {
+	
+		posicaoX = parseInt($("#amigo").css("left"));
+		$("#amigo").css("left", posicaoX+2);
+
+		if (posicaoX > 906) {
+			$("#amigo").css("left", 0);		
 		}
 	}
 
