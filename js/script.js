@@ -1,10 +1,23 @@
-function start() { // Inicio da função start()
+function start() {
 
 	$("#inicio").hide();
 	
-	$("#fundoGame").append("<div id='jogador'></div>");
-	$("#fundoGame").append("<div id='inimigo1'></div>");
-	$("#fundoGame").append("<div id='inimigo2'></div>");
-	$("#fundoGame").append("<div id='amigo'></div>");
+	$("#fundoGame").append("<div id='jogador' class='helicopter'></div>");
+	$("#fundoGame").append("<div id='inimigo1' class='helicopter'></div>");
+	$("#fundoGame").append("<div id='inimigo2' ></div>");
+	$("#fundoGame").append("<div id='amigo' class='human'></div>");
+	
+	var jogo = {}
+
+	jogo.timer = setInterval(loop,30);
+	
+	function loop() {
+		movefundo();
+	} 
+
+	function movefundo() {
+		esquerda = parseInt($("#fundoGame").css("background-position"));
+		$("#fundoGame").css("background-position",esquerda-2);
+		}
 
 } 
