@@ -18,7 +18,6 @@ function start() {
 		moveinimigoHelicoptero();
 		moveinimigo();
 		moveHumano();
-		disparo();
 	} 
 	
 	/* Moving Background */
@@ -65,7 +64,7 @@ function start() {
 		}
 		
 		if (jogo.pressionou[TECLA.D]) {
-			console.log('a')
+			disparo();
 		}
 	}
 
