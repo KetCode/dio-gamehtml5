@@ -137,8 +137,34 @@ function start() {
 	/* Player's colision */
 	function colisao() {
 		var colisao1 = ($("#jogador").collision($("#inimigo1"))); // colisão do jogador com o helicoptero
-	
 		
-	
+		if (colisao1.length > 0) {
+			inimigo1X = parseInt($("#inimigo1").css("left"));
+			inimigo1Y = parseInt($("#inimigo1").css("top"));
+			explosaoHelicoptero(inimigo1X, inimigo1Y);
+
+			posicaoY = parseInt(Math.random() * 334); // quando acontece a colisão o helicoptero inimigo se reposicionano eixo y e volta para posição inicial no eixo x
+			$("#inimigo1").css("left", 694);
+			$("#inimigo1").css("top", posicaoY);
+		}
+	}
+
+	function explosaoHelicoptero(inimigo1X, inimigo1Y) {
+		$("#fundoGame").append("<div id='explosaoHelicoptero'></div");
+		$("#explosaoHelicoptero").css("background-image", "url(imgs/explosao.png)");
+
+		var div = $("#explosaoHelicoptero");
+
+		div.css("top", inimigo1Y); // indica onde a explosão vai aparecer
+		div.css("left", inimigo1X);
+		div.animate({width:200, opacity:0}, "slow"); //vai ter uma animação da explosão crecendo (width) e sumindo aos poucos (opacity), com a animação lenta (slow)
+		
+		var tempoExplosao = window.setInterval(removeExplosao, 1000); // remove a animação de explosão em 1s
+		
+		function removeExplosao() {
+			div.remove();
+			window.clearInterval(tempoExplosao);
+			tempoExplosao = null;
+		}	
 	}
 } 
