@@ -18,6 +18,7 @@ function start() {
 		moveinimigoHelicoptero();
 		moveinimigo();
 		moveHumano();
+		colisao();
 	} 
 	
 	/* Moving Background */
@@ -131,5 +132,13 @@ function start() {
 				podeAtirar = true; // agora pode realizar outro disparo
 			}
 		}
+	}
+
+	/* Player's colision */
+	function colisao() {
+		var colisao1 = ($("#jogador").collision($("#inimigo1"))); // colisão do jogador com o helicoptero
+	
+		
+	
 	}
 } 
