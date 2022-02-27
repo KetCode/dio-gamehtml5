@@ -177,7 +177,7 @@ function start() {
 			$("#inimigo1").css("top",posicaoY);
 		}
 
-		/* Jogador - inimigo1 (caminhão) acerto do tiro */
+		/* Jogador - inimigo2 (caminhão) acerto do tiro */
 		if (colisao4.length > 0) {
 			inimigo2X = parseInt($("#inimigo2").css("left"));
 			inimigo2Y = parseInt($("#inimigo2").css("top"));
@@ -192,6 +192,16 @@ function start() {
 		if (colisao5.length > 0) {
 			reposicionaHumano();
 			$("#amigo").remove();
+		}
+
+		/* Inimigo2 (caminhão) - humano */
+		if (colisao6.length > 0) {
+			amigoX = parseInt($("#amigo").css("left"));
+			amigoY = parseInt($("#amigo").css("top"));
+			explosaoHumano(amigoX, amigoY);
+			$("#amigo").remove();
+					
+			reposicionaHumano();			
 		}
 	}
 
@@ -240,4 +250,17 @@ function start() {
 		}
 	}
 
+	function explosaoHumano(amigoX, amigoY) {
+		$("#fundoGame").append("<div id='explosaoHumano' class='humanDead'></div");
+		$("#explosaoHumano").css("top", amigoY);
+		$("#explosaoHumano").css("left", amigoX);
+
+		var tempoExplosao = window.setInterval(resetaExplosao, 1000);
+		
+		function resetaExplosao() {
+			$("#explosaoHumano").remove();
+			window.clearInterval(tempoExplosao);
+			tempoExplosao = null;		
+		}	
+	}
 } 
