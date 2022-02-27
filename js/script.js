@@ -6,7 +6,7 @@ function start() {
 	$("#fundoGame").append("<div id='inimigo1' class='helicopter'></div>");
 	$("#fundoGame").append("<div id='inimigo2' ></div>");
 	$("#fundoGame").append("<div id='amigo' class='human'></div>");
-	
+	$("#fundoGame").append("<div id='placar'></div>");
 
 	var jogo = {}
 	var fimdejogo = false;	
@@ -20,6 +20,7 @@ function start() {
 		moveinimigo();
 		moveHumano();
 		colisao();
+		placar();
 	} 
 	
 	/* Moving Background */
@@ -175,6 +176,8 @@ function start() {
 			posicaoY = parseInt(Math.random() * 334);
 			$("#inimigo1").css("left",694);
 			$("#inimigo1").css("top",posicaoY);
+
+			pontos = pontos + 100;
 		}
 
 		/* Jogador - inimigo2 (caminhão) acerto do tiro */
@@ -185,13 +188,15 @@ function start() {
 			explosao(inimigo2X, inimigo2Y);
 			$("#disparo").css("left", 950);
 			
-			reposicionaCaminhao();	
+			reposicionaCaminhao();
+			pontos = pontos + 50;
 		}
 
 		/* Jogador - humano */
 		if (colisao5.length > 0) {
 			reposicionaHumano();
 			$("#amigo").remove();
+			salvos++;
 		}
 
 		/* Inimigo2 (caminhão) - humano */
@@ -201,7 +206,8 @@ function start() {
 			explosaoHumano(amigoX, amigoY);
 			$("#amigo").remove();
 					
-			reposicionaHumano();			
+			reposicionaHumano();
+			perdidos++;			
 		}
 	}
 
@@ -262,5 +268,14 @@ function start() {
 			window.clearInterval(tempoExplosao);
 			tempoExplosao = null;		
 		}	
+	}
+
+	/* Placar */
+	var pontos = 0;
+	var salvos = 0;
+	var perdidos = 0;
+
+	function placar() {
+		$("#placar").html("<h2 id='pontuação'> Pontos: " + pontos + "<br> Salvos: " + salvos + " <br> Perdidos: " + perdidos + "</h2>");	
 	}
 } 
