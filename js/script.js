@@ -9,6 +9,7 @@ function start() {
 	
 
 	var jogo = {}
+	var fimdejogo = false;	
 	
 	jogo.timer = setInterval(loop, 30);
 	
@@ -136,28 +137,44 @@ function start() {
 
 	/* Player's colision */
 	function colisao() {
-		var colisao1 = ($("#jogador").collision($("#inimigo1"))); // colisão do jogador com o helicoptero
+		var colisao1 = ($("#jogador").collision($("#inimigo1"))); // colisão do jogador com o helicopter, trocar a função colision para calcular a posição do player e inimigo para aproximar mais a colisão
+		var colisao2 = ($("#jogador").collision($("#inimigo2")));
+		var colisao3 = ($("#disparo").collision($("#inimigo1")));
+		var colisao4 = ($("#disparo").collision($("#inimigo2")));
+		var colisao5 = ($("#jogador").collision($("#amigo")));
+		var colisao6 = ($("#inimigo2").collision($("#amigo")));
 		
+		/* Jogador - inimigo1 (helicoptero) */
 		if (colisao1.length > 0) {
 			inimigo1X = parseInt($("#inimigo1").css("left"));
 			inimigo1Y = parseInt($("#inimigo1").css("top"));
-			explosaoHelicoptero(inimigo1X, inimigo1Y);
+			explosao(inimigo1X, inimigo1Y);
 
 			posicaoY = parseInt(Math.random() * 334); // quando acontece a colisão o helicoptero inimigo se reposicionano eixo y e volta para posição inicial no eixo x
 			$("#inimigo1").css("left", 694);
 			$("#inimigo1").css("top", posicaoY);
 		}
+
+		/* Jogador - inimigo2 (caminhão) */
+		if (colisao2.length > 0) {
+			inimigo2X = parseInt($("#inimigo2").css("left"));
+			inimigo2Y = parseInt($("#inimigo2").css("top"));
+			explosao(inimigo2X, inimigo2Y);
+
+			$("#inimigo2").remove();
+			reposicionaCaminhao();	
+		}
 	}
 
-	function explosaoHelicoptero(inimigo1X, inimigo1Y) {
-		$("#fundoGame").append("<div id='explosaoHelicoptero'></div");
-		$("#explosaoHelicoptero").css("background-image", "url(imgs/explosao.png)");
+	function explosao(inimigoX, inimigoY) {
+		$("#fundoGame").append("<div id='explosao'></div");
+		$("#explosao").css("background-image", "url(imgs/explosao.png)");
 
-		var div = $("#explosaoHelicoptero");
+		var div = $("#explosao");
 
-		div.css("top", inimigo1Y); // indica onde a explosão vai aparecer
-		div.css("left", inimigo1X);
-		div.animate({width:200, opacity:0}, "slow"); //vai ter uma animação da explosão crecendo (width) e sumindo aos poucos (opacity), com a animação lenta (slow)
+		div.css("top", inimigoY); // indica onde a explosão vai aparecer
+		div.css("left", inimigoX);
+		div.animate({width: 200, opacity: 0}, "slow"); //vai ter uma animação da explosão crecendo (width) e sumindo aos poucos (opacity), com a animação lenta (slow)
 		
 		var tempoExplosao = window.setInterval(removeExplosao, 1000); // remove a animação de explosão em 1s
 		
@@ -167,4 +184,20 @@ function start() {
 			tempoExplosao = null;
 		}	
 	}
+
+	function reposicionaCaminhao() {
+		var tempoColisao = window.setInterval(reposiciona, 5000);
+
+		function reposiciona() {
+			window.clearInterval(tempoColisao);
+			tempoColisao = null;
+
+			if (fimdejogo == false) {
+				$("#fundoGame").append("<div id=inimigo2></div");
+			}
+		}	
+	}
+
+	
+
 } 

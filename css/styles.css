@@ -195,16 +195,9 @@ body {
 	background-image: url(../imgs/disparo.png);
 }
 
-#explosaoHelicoptero {
-	width:15px;
-	height:87px;
-	position:absolute;
+#explosao {
+	width: 15px;
+	height: 87px;
+	position: absolute;
 
-}
-
-#explosao2 {
-	width:15px;
-	height:87px;
-	position:absolute;
-	
 }
