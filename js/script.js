@@ -164,6 +164,35 @@ function start() {
 			$("#inimigo2").remove();
 			reposicionaCaminhao();	
 		}
+
+		/* Jogador - inimigo1 (helicoptero) acerto do tiro */
+		if (colisao3.length > 0) {
+			inimigo1X = parseInt($("#inimigo1").css("left"));
+			inimigo1Y = parseInt($("#inimigo1").css("top"));	
+			explosao(inimigo1X, inimigo1Y);
+			$("#disparo").css("left", 950); // reposiciona o tiro, some quando bate no inimigo, se diminuir o tiro continua sendo renderizado no jogo, n pode ser menor que 900
+				
+			posicaoY = parseInt(Math.random() * 334);
+			$("#inimigo1").css("left",694);
+			$("#inimigo1").css("top",posicaoY);
+		}
+
+		/* Jogador - inimigo1 (caminhão) acerto do tiro */
+		if (colisao4.length > 0) {
+			inimigo2X = parseInt($("#inimigo2").css("left"));
+			inimigo2Y = parseInt($("#inimigo2").css("top"));
+			$("#inimigo2").remove();
+			explosao(inimigo2X, inimigo2Y);
+			$("#disparo").css("left", 950);
+			
+			reposicionaCaminhao();	
+		}
+
+		/* Jogador - humano */
+		if (colisao5.length > 0) {
+			reposicionaHumano();
+			$("#amigo").remove();
+		}
 	}
 
 	function explosao(inimigoX, inimigoY) {
@@ -198,6 +227,17 @@ function start() {
 		}	
 	}
 
-	
+	function reposicionaHumano() {
+		var tempoHumano = window.setInterval(reposiciona, 6000);
+		
+		function reposiciona() {
+			window.clearInterval(tempoHumano);
+			tempoHumano = null;
+		
+			if (fimdejogo == false) {
+				$("#fundoGame").append("<div id='amigo' class='human'></div>");
+			}
+		}
+	}
 
 } 
