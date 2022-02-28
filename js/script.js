@@ -7,6 +7,7 @@ function start() {
 	$("#fundoGame").append("<div id='inimigo2' ></div>");
 	$("#fundoGame").append("<div id='amigo' class='human'></div>");
 	$("#fundoGame").append("<div id='placar'></div>");
+	$("#fundoGame").append("<div id='energia'></div>");
 
 	var jogo = {}
 	var fimdejogo = false;	
@@ -21,6 +22,7 @@ function start() {
 		moveHumano();
 		colisao();
 		placar();
+		energia();
 	} 
 	
 	/* Moving Background */
@@ -154,6 +156,8 @@ function start() {
 			posicaoY = parseInt(Math.random() * 334); // quando acontece a colisão o helicoptero inimigo se reposicionano eixo y e volta para posição inicial no eixo x
 			$("#inimigo1").css("left", 694);
 			$("#inimigo1").css("top", posicaoY);
+
+			energiaAtual--;
 		}
 
 		/* Jogador - inimigo2 (caminhão) */
@@ -163,7 +167,9 @@ function start() {
 			explosao(inimigo2X, inimigo2Y);
 
 			$("#inimigo2").remove();
-			reposicionaCaminhao();	
+			reposicionaCaminhao();
+
+			energiaAtual--;
 		}
 
 		/* Jogador - inimigo1 (helicoptero) acerto do tiro */
@@ -270,12 +276,25 @@ function start() {
 		}	
 	}
 
-	/* Placar */
+	/* Placar e energia */
 	var pontos = 0;
 	var salvos = 0;
 	var perdidos = 0;
 
 	function placar() {
 		$("#placar").html("<h2 id='pontuação'> Pontos: " + pontos + "<br> Salvos: " + salvos + " <br> Perdidos: " + perdidos + "</h2>");	
+	}
+	
+	var energiaAtual = 3;
+
+	function energia() {
+	
+		if (energiaAtual == 3) $("#energia").css("background-image", "url(imgs/energia3.png)");
+	
+		if (energiaAtual == 2) $("#energia").css("background-image", "url(imgs/energia2.png)");
+	
+		if (energiaAtual == 1) $("#energia").css("background-image", "url(imgs/energia1.png)");
+	
+		if (energiaAtual == 0) $("#energia").css("background-image", "url(imgs/energia0.png)");
 	}
 } 

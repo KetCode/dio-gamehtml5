@@ -242,6 +242,9 @@ body {
      to { background-position: -308px; }
 }
 
+
+/* Placar e energia */
+
 #placar {
 	width: 450px;
 	height: 50px;
@@ -253,4 +256,12 @@ body {
 #pontuação {
 	font-size: 20px;
 	color: #FFF
+}
+
+#energia {
+	width: 140px;
+	height: 38px;
+	position: absolute;
+	left: 810px;
+	top: 7px;	
 }
