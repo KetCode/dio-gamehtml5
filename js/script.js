@@ -115,13 +115,17 @@ function start() {
 	
 		if (podeAtirar == true) {
 			podeAtirar = false; // não pode realizar o tiro enquanto a função do tiro ainda está rodando
+			somDisparo.play();
+			
 			topo = parseInt($("#jogador").css("top"))
 			posicaoX = parseInt($("#jogador").css("left"))
 			tiroX = posicaoX + 190; // posição x do tiro
 			topoTiro = topo + 42; // posição y do tiro
+			
 			$("#fundoGame").append("<div id='disparo'></div");
 			$("#disparo").css("top", topoTiro);
 			$("#disparo").css("left", tiroX);
+			
 			var tempoDisparo = window.setInterval(executaDisparo, 30); // velocidade do disparo sem sair da caixa do jogo, só diminuir q aumenta a velocidade.
 		}
 	 
@@ -204,7 +208,9 @@ function start() {
 		if (colisao5.length > 0) {
 			reposicionaHumano();
 			$("#amigo").remove();
+			
 			salvos++;
+			somResgate.play();
 		}
 
 		/* Inimigo2 (caminhão) - humano */
@@ -230,7 +236,8 @@ function start() {
 		div.animate({width: 200, opacity: 0}, "slow"); //vai ter uma animação da explosão crecendo (width) e sumindo aos poucos (opacity), com a animação lenta (slow)
 		
 		var tempoExplosao = window.setInterval(removeExplosao, 1000); // remove a animação de explosão em 1s
-		
+		somExplosao.play();
+
 		function removeExplosao() {
 			div.remove();
 			window.clearInterval(tempoExplosao);
@@ -270,6 +277,7 @@ function start() {
 		$("#explosaoHumano").css("left", amigoX);
 
 		var tempoExplosao = window.setInterval(resetaExplosao, 1000);
+		somPerdido.play();
 		
 		function resetaExplosao() {
 			$("#explosaoHumano").remove();
@@ -290,7 +298,6 @@ function start() {
 	var energiaAtual = 3;
 
 	function energia() {
-	
 		if (energiaAtual == 3) $("#energia").css("background-image", "url(imgs/energia3.png)");
 	
 		if (energiaAtual == 2) $("#energia").css("background-image", "url(imgs/energia2.png)");
@@ -299,4 +306,19 @@ function start() {
 	
 		if (energiaAtual == 0) $("#energia").css("background-image", "url(imgs/energia0.png)");
 	}
+
+	/* sound and sfx */
+	var somDisparo = document.getElementById("somDisparo");
+	var somExplosao = document.getElementById("somExplosao");
+	var musica = document.getElementById("musica");
+	var somGameover = document.getElementById("somGameover");
+	var somPerdido = document.getElementById("somPerdido");
+	var somResgate = document.getElementById("somResgate");
+
+	musica.addEventListener("ended", function(){ 
+		musica.currentTime = 0; 
+		musica.play(); 
+	}, false);
+	
+	musica.play();
 } 
