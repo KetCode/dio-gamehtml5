@@ -341,4 +341,10 @@ function start() {
 		$("#fundoGame").append("<div id='fim'></div>");
 		$("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi: " + pontos + "</p> " + "<button class='runGame' onclick=reiniciaJogo()role='button'>Jogar Novamente</button>");
 	}
-} 
+}
+
+function reiniciaJogo() {
+	somGameover.pause();
+	$("#fim").remove();
+	start();
+}
