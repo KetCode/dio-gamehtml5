@@ -184,6 +184,8 @@ function start() {
 			$("#inimigo1").css("top",posicaoY);
 
 			pontos = pontos + 100;
+
+			velocidade = velocidade + .1; // deixa o inimigo mais rápido a cada vez que abate
 		}
 
 		/* Jogador - inimigo2 (caminhão) acerto do tiro */
